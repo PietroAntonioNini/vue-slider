@@ -6,7 +6,8 @@ createApp({
         return {
 
             //indice della slide attiva
-            activeSlideIndex: 0, 
+            activeSlideIndex: 0,
+            autoplayInterval: null,
 
             slides: [
                 {
@@ -34,7 +35,12 @@ createApp({
             ],
         }
     },
+    mounted() {
+        this.startAutoplay();
+    },
     methods: {
+
+        //freccia su
         nextSlide() {
             this.activeSlideIndex++;
 
@@ -43,6 +49,7 @@ createApp({
             }
         },
 
+        //freccia giu
         prevSlide() {
             this.activeSlideIndex--;
 
@@ -51,9 +58,23 @@ createApp({
             }
         },
 
+        //funzione per il click su un thumb
         clickedSlide(index) {
             this.activeSlideIndex = index;
-        }
+        },
+
+        //autoplay ogni 3 secondi
+        startAutoplay() {
+            this.autoplayInterval = setInterval(() => {
+                this.activeSlideIndex = (this.activeSlideIndex + 1) % this.slides.length;
+            }, 3000);
+        },
+
+        //stop all'intervallo
+        stopAutoplay() {
+            clearInterval(this.autoplayInterval);
+            this.autoplayInterval = null;
+        },
 
     },
 }).mount('#app');
