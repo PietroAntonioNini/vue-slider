@@ -49,6 +49,10 @@ createApp({
             if(this.activeSlideIndex < 0) {
                 this.activeSlideIndex= this.slides.length - 1;
             }
+        },
+
+        clickedSlide(index) {
+            this.activeSlideIndex = index;
         }
 
     },
